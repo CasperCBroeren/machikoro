@@ -1,0 +1,25 @@
+﻿using System.Threading.Tasks;
+
+namespace Machikoro.Logic.GameItems.Cards.Catering
+{
+    public class Cafe : ACard
+    {
+        public Cafe(Player owner) : base(owner)
+        {
+            this.Name = "Cafe";
+            this.Activation = new int[] {3};
+            this.CardType = CardType.Commercial;
+            this.Cost = 1;
+        }
+        
+        public override Task<bool> DoEffect()
+        {
+            if (Owner != CurrentGame.CurrentPlayer)
+            { 
+                CurrentGame.BankService.TransferMoney(Owner, 1, CurrentGame.CurrentPlayer);
+                return Task.FromResult(true);
+            }
+            return Task.FromResult(false);
+        }
+    }
+}
