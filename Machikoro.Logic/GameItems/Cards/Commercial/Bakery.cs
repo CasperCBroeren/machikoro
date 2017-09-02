@@ -16,7 +16,7 @@ namespace Machikoro.Logic.GameItems.Cards.Commercial
         {
             if (Owner == CurrentGame.CurrentPlayer)
             {
-                CurrentGame.BankService.TransferMoney(Owner, 1, null);
+                CurrentGame.BankService.TransferMoney(1, Owner, null);
                 return Task.FromResult(true);
             }
 

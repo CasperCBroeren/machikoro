@@ -5,6 +5,8 @@ namespace Machikoro.Logic.Service
 {
     public interface IBankService
     {
-        Task TransferMoney(Player receiver, int amount, Player sender = null);
+        int BankBalance { get; set; }
+
+        Task<bool> TransferMoney(int amount, Player receiver =null, Player sender = null);
     }
 }

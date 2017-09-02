@@ -16,7 +16,7 @@ namespace Machikoro.Logic.GameItems.Cards.Catering
         {
             if (Owner != CurrentGame.CurrentPlayer)
             { 
-                CurrentGame.BankService.TransferMoney(Owner, 1, CurrentGame.CurrentPlayer);
+                CurrentGame.BankService.TransferMoney(1, Owner, CurrentGame.CurrentPlayer);
                 return Task.FromResult(true);
             }
             return Task.FromResult(false);

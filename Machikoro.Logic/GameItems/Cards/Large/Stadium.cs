@@ -17,7 +17,7 @@ namespace Machikoro.Logic.GameItems.Cards.Large
         {
             foreach (var otherPlayer in CurrentGame.Players.Where(x=> !x.Equals(Owner)))
             {
-                CurrentGame.BankService.TransferMoney(Owner, 2, otherPlayer); 
+                CurrentGame.BankService.TransferMoney(2, Owner, otherPlayer); 
             }
             
             return Task.FromResult(true);

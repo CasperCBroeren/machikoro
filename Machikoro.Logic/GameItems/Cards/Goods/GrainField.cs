@@ -14,7 +14,7 @@ namespace Machikoro.Logic.GameItems.Cards.Goods
 
         public override Task<bool> DoEffect()
         { 
-            CurrentGame.BankService.TransferMoney(Owner, 1, null);
+            CurrentGame.BankService.TransferMoney(1, Owner, null);
             
             return Task.FromResult(true);
         }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Machikoro.Logic.GameItems;
 
 namespace Machikoro.Logic.Service.DiceService
@@ -6,6 +7,9 @@ namespace Machikoro.Logic.Service.DiceService
     public class FixedDice : IDiceService 
     {
         public int FixedNumber { get; set; }
+
+        public int CurrentPips => FixedNumber;
+
         public Task<int> GeneratePips(Player currentPlayer)
         {
             return Task.FromResult(FixedNumber);

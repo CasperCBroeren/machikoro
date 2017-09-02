@@ -21,7 +21,7 @@ namespace Machikoro.Test
             var game = new Game();
             game.SetDependencies(new FixedDice() {FixedNumber = 0},
                 new BankService(game),
-                new CardService());
+                new CardService(game));
             
             var player = new Player(game); 
             var card = new GrainField(player);
@@ -35,7 +35,7 @@ namespace Machikoro.Test
             var game = new Game();
             game.SetDependencies(new FixedDice() {FixedNumber = 1},
                                 new BankService(game),
-                                new CardService());
+                                new CardService(game));
              
             var player = new Player(game);
 
@@ -50,7 +50,7 @@ namespace Machikoro.Test
             var game = new Game();
             game.SetDependencies(new FixedDice() {FixedNumber = 3},
                 new BankService(game),
-                new CardService());
+                new CardService(game));
 
             var player1 = new Player(game) {Name = "player1"};
             var player2 = new Player(game) {Name = "player2"};
@@ -70,7 +70,7 @@ namespace Machikoro.Test
             var game = new Game();
             game.SetDependencies(new FixedDice() {FixedNumber = 2},
                 new BankService(game),
-                new CardService());
+                new CardService(game));
             
             var player1 = new Player(game);
             game.CurrentPlayer = player1;
@@ -85,7 +85,7 @@ namespace Machikoro.Test
             var game = new Game();
             game.SetDependencies(new FixedDice() {FixedNumber = 6},
                 new BankService(game),
-                new CardService());
+                new CardService(game));
             
             var player1 = new Player(game); 
             var player2 = new Player(game); 
