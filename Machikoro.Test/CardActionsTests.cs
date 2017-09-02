@@ -11,7 +11,7 @@ using Machikoro.Logic.Service.DiceService;
 using Shouldly;
 using Xunit;
 
-namespace MachikoroTest
+namespace Machikoro.Test
 {
     public class CardActionsTests
     {

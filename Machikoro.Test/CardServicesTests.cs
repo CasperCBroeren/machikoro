@@ -2,7 +2,7 @@
 using Machikoro.Logic.Service.BankService;
 using Machikoro.Logic.Service.CardService;
 
-namespace MachikoroTest
+namespace Machikoro.Test
 {
     public class CardServicesTests
     {
