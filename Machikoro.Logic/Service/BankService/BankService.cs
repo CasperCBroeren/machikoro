@@ -12,7 +12,7 @@ namespace Machikoro.Logic.Service.BankService
         public BankService(IGame game)
         {
             this._game = game;
-            this.BankBalance = 150;
+            this.BankBalance = 192;
         }
 
         public Task<bool> TransferMoney(int amount, Player receiver = null, Player sender = null)
@@ -41,7 +41,7 @@ namespace Machikoro.Logic.Service.BankService
                 }
                 else
                 {
-                    return Task.FromResult(true);
+                    return Task.FromResult(false);
                 }
             }
             else
@@ -58,6 +58,7 @@ namespace Machikoro.Logic.Service.BankService
                 else
                 {
                     amount = 0;
+
                 }
             }
 
@@ -70,7 +71,10 @@ namespace Machikoro.Logic.Service.BankService
             {
                 BankBalance += amountToReceive;
             }
+
+
             return Task.FromResult(true);
+
         }
     }
 }

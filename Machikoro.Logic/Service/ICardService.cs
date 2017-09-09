@@ -8,5 +8,6 @@ namespace Machikoro.Logic.Service
     public interface ICardService
     {
         Task<bool> BuyCard(Player buyForPlayer, Type card);
+        int AmountInStock(Type card);
     }
 }

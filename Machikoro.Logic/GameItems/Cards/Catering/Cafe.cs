@@ -8,8 +8,8 @@ namespace Machikoro.Logic.GameItems.Cards.Catering
         {
             this.Name = "Cafe";
             this.Activation = new int[] {3};
-            this.CardType = CardType.Commercial;
-            this.Cost = 1;
+            this.CardType = CardType.Catering;
+            this.Cost = 2;
         }
         
         public override Task<bool> DoEffect()

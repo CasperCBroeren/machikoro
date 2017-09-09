@@ -24,7 +24,8 @@ namespace Machikoro.Test
             {
                await cardService.BuyCard(player, typeof(GrainField));
             }
-            game.BankService.BankBalance.ShouldBe(153);
+            game.BankService.BankBalance.ShouldBe(192);
+            game.CardService.AmountInStock(typeof(GrainField)).ShouldBe(7);
         }
     }
 }

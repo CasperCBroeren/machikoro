@@ -10,6 +10,7 @@ namespace Machikoro.Logic.GameItems.Cards
         public string Effect { get; protected set; }
         public int Cost { get; protected set; }
         public Player Owner { get; set; }
+        public CardSubType SubType { get; set; }
 
         public ACard(Player owner)
         {

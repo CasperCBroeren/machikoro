@@ -6,10 +6,11 @@ namespace Machikoro.Logic.GameItems.Cards.Goods
     {
         public GrainField(Player owner) : base(owner)
         {
-            this.Name = "GrainField";
+            this.Name = "Grain field";
             this.Activation = new int[] {1};
             this.CardType = CardType.Goods;
-            this.Cost = 1; 
+            this.Cost = 1;
+            this.SubType = CardSubType.FruitVegetableGrain;
         }
 
         public override Task<bool> DoEffect()
