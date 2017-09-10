@@ -4,7 +4,7 @@ namespace Machikoro.Logic.GameItems.Cards.Catering
 {
     public class Cafe : ACard
     {
-        public Cafe(Player owner) : base(owner)
+        public Cafe(IPlayer owner) : base(owner)
         {
             this.Name = "Cafe";
             this.Activation = new int[] {3};
@@ -12,7 +12,7 @@ namespace Machikoro.Logic.GameItems.Cards.Catering
             this.Cost = 2;
         }
         
-        public override Task<bool> DoEffect()
+        public override Task<bool> DoEffectAsync()
         {
             if (Owner != CurrentGame.CurrentPlayer)
             { 

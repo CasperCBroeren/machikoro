@@ -10,6 +10,7 @@ using Machikoro.Logic.Service.CardService;
 using Machikoro.Logic.Service.DiceService;
 using Shouldly;
 using Xunit;
+using Machikoro.Logic.GameItems.Game;
 
 namespace Machikoro.Test
 {
@@ -18,7 +19,7 @@ namespace Machikoro.Test
         [Fact]
         public async Task  GrainField_NoPips()
         {
-            var game = new Game();
+            var game = new TestGame();
             game.SetDependencies(new FixedDice() {FixedNumber = 0},
                 new BankService(game),
                 new CardService(game));
@@ -32,7 +33,7 @@ namespace Machikoro.Test
         [Fact]
         public async Task  GrainField_ShouldAdd_1()
         {
-            var game = new Game();
+            var game = new TestGame();
             game.SetDependencies(new FixedDice() {FixedNumber = 1},
                                 new BankService(game),
                                 new CardService(game));
@@ -47,7 +48,7 @@ namespace Machikoro.Test
         [Fact]
         public async Task Cafe_ShouldAdd_1_and_Deduct_1()
         {
-            var game = new Game();
+            var game = new TestGame();
             game.SetDependencies(new FixedDice() {FixedNumber = 3},
                 new BankService(game),
                 new CardService(game));
@@ -67,7 +68,7 @@ namespace Machikoro.Test
         [Fact]
         public async Task  Bakery_ShouldAdd_1()
         {
-            var game = new Game();
+            var game = new TestGame();
             game.SetDependencies(new FixedDice() {FixedNumber = 2},
                 new BankService(game),
                 new CardService(game));
@@ -82,7 +83,7 @@ namespace Machikoro.Test
         [Fact]
         public async Task  Stadium_ShouldAdd_2()
         {
-            var game = new Game();
+            var game = new TestGame();
             game.SetDependencies(new FixedDice() {FixedNumber = 6},
                 new BankService(game),
                 new CardService(game));

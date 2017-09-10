@@ -1,25 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Machikoro.Logic.GameItems.Cards;
 using Machikoro.Logic.Service;
-using Machikoro.Logic.Service.BankService;
 
-namespace Machikoro.Logic.GameItems
+namespace Machikoro.Logic.GameItems.Game
 {
-    public class Game : IGame
+    public class TestGame : IGame
     {
         public IDiceService DiceService { get; private set; }
         public IBankService BankService { get; private set; }
         public ICardService CardService { get; private set; }
-        
-        private int _pips; 
-        public List<Player> Players { get;  }
-        public Player CurrentPlayer { get; set; }
-        public int Pips
-        {
-            get => _pips;
-        }
+         
+        public List<IPlayer> Players { get;  }
+        public IPlayer CurrentPlayer { get; set; }
+    
         public int StartCoinCount { get; } = 3;
 
         public void SetDependencies(IDiceService diceService,
@@ -31,9 +27,9 @@ namespace Machikoro.Logic.GameItems
             CardService = cardService;
         }
 
-        public Game()
+        public TestGame()
         {
-           this.Players = new List<Player>();
+           this.Players = new List<IPlayer>();
         }
 
         public async Task<bool> ExecuteRound()
@@ -46,14 +42,14 @@ namespace Machikoro.Logic.GameItems
             {
                 await player.ExecuteRound();   
             }
-            
+            await CurrentPlayer.BuyACardAtRound();
             return true;
         }
 
         public async Task ThrowDice()
         {
-            _pips = await this.DiceService.GeneratePips(this.CurrentPlayer);
-            OnDiceThrown(CurrentPlayer, _pips);
+            await this.DiceService.GeneratePips(this.CurrentPlayer);
+            OnDiceThrown(CurrentPlayer, this.DiceService.CurrentPips);
         }
 
         private void SetNextPlayer()
@@ -79,25 +75,31 @@ namespace Machikoro.Logic.GameItems
         public event Events.CardActivated     CardActivated;
         public event Events.CoinsDeducted     CoinsDeducted;
         public event Events.CoinsReceived     CoinsReceived;
+        public event Events.CardTraded        CardTraded;
 
-        public void OnDiceThrown(Player player, int pips)
+        public void OnDiceThrown(IPlayer player, int pips)
         {
             DiceThrown?.Invoke(player, pips);
         }
         
-        public void OnCardActivated(ACard card, Player player)
+        public void OnCardActivated(ACard card, IPlayer player)
         {
             CardActivated?.Invoke(card, player);
         }
 
-        public void OnCoinsDeducted(Player deductedFrom, int amount, Player taker)
+        public void OnCoinsDeducted(IPlayer deductedFrom, int amount, IPlayer taker)
         {
             CoinsDeducted?.Invoke(deductedFrom, amount, taker);
         }
         
-        public void OnCoinsReceived(Player receiver, int amount, Player sender)
+        public void OnCoinsReceived(IPlayer receiver, int amount, IPlayer sender)
         {
             CoinsReceived?.Invoke(receiver, amount, sender);
+        }
+
+        public void OnCardTraded(ACard ownCard, ACard otherCard)
+        {
+            CardTraded?.Invoke(ownCard, otherCard);
         }
     }
 }

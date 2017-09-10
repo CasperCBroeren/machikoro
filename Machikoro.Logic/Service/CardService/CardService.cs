@@ -36,8 +36,11 @@ namespace Machikoro.Logic.Service.CardService
             cardStock.Add(nameof(CheeseFactory), 6);
             cardStock.Add(nameof(FurnitureFactory), 6);
 
-            cardStock.Add(nameof(TrainStation), 4);
             cardStock.Add(nameof(Stadium), 4);
+            cardStock.Add(nameof(BusinessComplex), 9);
+            cardStock.Add(nameof(TvStation), 4);
+
+            cardStock.Add(nameof(TrainStation), 4);
         }
 
         public int AmountInStock(Type card)
@@ -45,7 +48,7 @@ namespace Machikoro.Logic.Service.CardService
             return cardStock[card.GetTypeInfo().Name];
         }
 
-        public async Task<bool> BuyCard(Player buyForPlayer, Type card)
+        public async Task<bool> BuyCard(IPlayer buyForPlayer, Type card)
         {
             if (!card.GetTypeInfo().IsSubclassOf(typeof(ACard)))
             {
@@ -68,6 +71,21 @@ namespace Machikoro.Logic.Service.CardService
             }
 
             return false;
+        }
+
+        public Task TradeCardFromOwner(ACard ownCard, ACard otherCard)
+        {
+            var playerA = ownCard.Owner;
+            var playerB = otherCard.Owner;
+
+            playerA.Cards.Remove(ownCard);
+            playerB.Cards.Remove(otherCard);
+
+            playerA.Cards.Add(otherCard);
+            playerB.Cards.Add(ownCard);
+
+            game.OnCardTraded(ownCard, otherCard);
+            return Task.CompletedTask;
         }
     }
 }

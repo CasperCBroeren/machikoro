@@ -6,7 +6,7 @@ namespace Machikoro.Logic.GameItems.Cards.Goods
 {
     public class Orchard : ACard
     {
-        public Orchard(Player owner) : base(owner)
+        public Orchard(IPlayer owner) : base(owner)
         {
             this.Name = "Orchard";
             this.Activation = new int[] { 10 };
@@ -15,7 +15,7 @@ namespace Machikoro.Logic.GameItems.Cards.Goods
             this.SubType = CardSubType.FruitVegetableGrain;
         }
 
-        public override Task<bool> DoEffect()
+        public override Task<bool> DoEffectAsync()
         {
             CurrentGame.BankService.TransferMoney(3, Owner, null);
 

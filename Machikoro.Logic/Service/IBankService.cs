@@ -7,6 +7,6 @@ namespace Machikoro.Logic.Service
     {
         int BankBalance { get; set; }
 
-        Task<bool> TransferMoney(int amount, Player receiver =null, Player sender = null);
+        Task<bool> TransferMoney(int amount, IPlayer receiver =null, IPlayer sender = null); 
     }
 }

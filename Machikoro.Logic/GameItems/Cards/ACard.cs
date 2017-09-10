@@ -9,16 +9,16 @@ namespace Machikoro.Logic.GameItems.Cards
         public string Name { get; protected set; }
         public string Effect { get; protected set; }
         public int Cost { get; protected set; }
-        public Player Owner { get; set; }
+        public IPlayer Owner { get; set; }
         public CardSubType SubType { get; set; }
 
-        public ACard(Player owner)
+        public ACard(IPlayer owner)
         {
             this.Owner = owner;
             owner.Cards.Add(this);
         }
         
-        public abstract Task<bool> DoEffect();
-        public Game CurrentGame => Owner.Game;
+        public abstract Task<bool> DoEffectAsync();
+        public IGame CurrentGame => Owner.Game;
     }
 }

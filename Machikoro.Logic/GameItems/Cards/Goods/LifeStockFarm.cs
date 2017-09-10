@@ -7,7 +7,7 @@ namespace Machikoro.Logic.GameItems.Cards.Goods
 {
     public class LiveStockFarm : ACard
     {
-        public LiveStockFarm(Player owner) : base(owner)
+        public LiveStockFarm(IPlayer owner) : base(owner)
         {
             this.Name = "Livestock farm";
             this.Activation = new int[] { 2 };
@@ -16,7 +16,7 @@ namespace Machikoro.Logic.GameItems.Cards.Goods
             this.SubType = CardSubType.LiveStock;
         }
 
-        public override Task<bool> DoEffect()
+        public override Task<bool> DoEffectAsync()
         {
             CurrentGame.BankService.TransferMoney(1, Owner, null);
 

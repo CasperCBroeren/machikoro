@@ -1,5 +1,6 @@
 ﻿using Machikoro.Logic.GameItems;
 using Machikoro.Logic.GameItems.Cards.Goods;
+using Machikoro.Logic.GameItems.Game;
 using Machikoro.Logic.Service.BankService;
 using Machikoro.Logic.Service.CardService;
 using Machikoro.Logic.Service.DiceService;
@@ -14,7 +15,7 @@ namespace Machikoro.Test
         [Fact]
         public async Task BuyAllGrainFields()
         {
-            var game = new Game();
+            var game = new TestGame();
             var bankService = new BankService(game);
             var cardService = new CardService(game);
             game.SetDependencies(new FixedDice() { FixedNumber= 2}, bankService, cardService);

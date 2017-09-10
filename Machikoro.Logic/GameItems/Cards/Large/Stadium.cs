@@ -5,15 +5,15 @@ namespace Machikoro.Logic.GameItems.Cards.Large
 {
     public class Stadium : ACard
     {
-        public Stadium(Player owner) : base(owner)
+        public Stadium(IPlayer owner) : base(owner)
         {
             this.Name = "Stadium";
             this.Activation = new int[] {6};
             this.CardType = CardType.Commercial;
-            this.Cost = 1;
+            this.Cost = 6;
         }
         
-        public override Task<bool> DoEffect()
+        public override Task<bool> DoEffectAsync()
         {
             foreach (var otherPlayer in CurrentGame.Players.Where(x=> !x.Equals(Owner)))
             {

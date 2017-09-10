@@ -4,7 +4,7 @@ namespace Machikoro.Logic.GameItems.Cards.Goods
 {
     public class GrainField : ACard
     {
-        public GrainField(Player owner) : base(owner)
+        public GrainField(IPlayer owner) : base(owner)
         {
             this.Name = "Grain field";
             this.Activation = new int[] {1};
@@ -13,7 +13,7 @@ namespace Machikoro.Logic.GameItems.Cards.Goods
             this.SubType = CardSubType.FruitVegetableGrain;
         }
 
-        public override Task<bool> DoEffect()
+        public override Task<bool> DoEffectAsync()
         { 
             CurrentGame.BankService.TransferMoney(1, Owner, null);
             

@@ -15,7 +15,7 @@ namespace Machikoro.Logic.Service.BankService
             this.BankBalance = 192;
         }
 
-        public Task<bool> TransferMoney(int amount, Player receiver = null, Player sender = null)
+        public Task<bool> TransferMoney(int amount, IPlayer receiver = null, IPlayer sender = null)
         {
             if (receiver == null && sender == null) throw new ArgumentException("Receiver or sender must be filled");
             var amountToReceive = amount;

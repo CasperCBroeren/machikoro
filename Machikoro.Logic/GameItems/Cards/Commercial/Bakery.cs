@@ -4,7 +4,7 @@ namespace Machikoro.Logic.GameItems.Cards.Commercial
 {
     public class Bakery :  ACard
     {
-        public Bakery(Player owner) : base(owner)
+        public Bakery(IPlayer owner) : base(owner)
         {
             this.Name = "Bakery";
             this.Activation = new int[] {2, 3};
@@ -12,7 +12,7 @@ namespace Machikoro.Logic.GameItems.Cards.Commercial
             this.Cost = 1;
         }
         
-        public override Task<bool> DoEffect()
+        public override Task<bool> DoEffectAsync()
         {
             if (Owner == CurrentGame.CurrentPlayer)
             {

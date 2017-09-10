@@ -4,7 +4,7 @@ namespace Machikoro.Logic.GameItems.Cards.Epic
 {
     public class TrainStation : ACard
     {
-        public TrainStation(Player owner) : base(owner)
+        public TrainStation(IPlayer owner) : base(owner)
         {
             this.Name = "Train station";
             this.Activation = new int[] {0};
@@ -12,7 +12,7 @@ namespace Machikoro.Logic.GameItems.Cards.Epic
             this.Cost = 4;
         }
         
-        public override Task<bool> DoEffect()
+        public override Task<bool> DoEffectAsync()
         {
             
             return Task.FromResult(true);

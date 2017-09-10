@@ -6,6 +6,6 @@ namespace Machikoro.Logic.Service
     public interface IDiceService
     {
         int CurrentPips { get; }
-        Task<int> GeneratePips(Player currentPlayer);
+        Task<int> GeneratePips(IPlayer currentPlayer);
     }
 }

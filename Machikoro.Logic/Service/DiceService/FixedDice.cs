@@ -10,7 +10,7 @@ namespace Machikoro.Logic.Service.DiceService
 
         public int CurrentPips => FixedNumber;
 
-        public Task<int> GeneratePips(Player currentPlayer)
+        public Task<int> GeneratePips(IPlayer currentPlayer)
         {
             return Task.FromResult(FixedNumber);
         }

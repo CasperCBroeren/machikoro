@@ -5,7 +5,7 @@ namespace Machikoro.Logic.GameItems.Cards.Goods
 {
     public class Mine : ACard
     {
-        public Mine(Player owner) : base(owner)
+        public Mine(IPlayer owner) : base(owner)
         {
             this.Name = "Mine";
             this.Activation = new int[] { 9 };
@@ -14,7 +14,7 @@ namespace Machikoro.Logic.GameItems.Cards.Goods
             this.SubType = CardSubType.BuildingMaterial;
         }
 
-        public override Task<bool> DoEffect()
+        public override Task<bool> DoEffectAsync()
         {
             CurrentGame.BankService.TransferMoney(5, Owner, null);
 
