@@ -18,7 +18,7 @@ namespace Machikoro.Logic.GameItems.Cards
             owner.Cards.Add(this);
         }
         
-        public abstract Task<bool> DoEffectAsync();
+        public abstract Task<bool> DoEffect();
         public IGame CurrentGame => Owner.Game;
     }
 }

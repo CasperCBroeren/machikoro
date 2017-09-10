@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Machikoro.Logic.GameItems.Cards;
 using Machikoro.Logic.Service;
+using Machikoro.Logic.GameItems.Cards.Epic;
 
 namespace Machikoro.Logic.GameItems.Game
 {
@@ -32,17 +33,34 @@ namespace Machikoro.Logic.GameItems.Game
            this.Players = new List<IPlayer>();
         }
 
-        public async Task<bool> ExecuteRound()
+        public async Task<bool> ExecuteRound(bool setNext = true)
         {
-            SetNextPlayer();
+            if (setNext)
+            {
+                SetNextPlayer();
+            }
             
             await ThrowDice();
+            if (this.CurrentPlayer.Cards.Any(x=> x is RadioStation))
+            {
+               if (await this.CurrentPlayer.Cards.First(x => x is RadioStation).DoEffect())
+               {
+                    await ThrowDice();
+               }
+            }
             
             foreach (var player in Players)
             {
                 await player.ExecuteRound();   
             }
             await CurrentPlayer.BuyACardAtRound();
+            if (this.CurrentPlayer.Cards.Any(x => x is ThemePark))
+            {
+               if ( await this.CurrentPlayer.Cards.First(x => x is ThemePark).DoEffect())
+               {
+                    await ExecuteRound(false);
+               }
+            }
             return true;
         }
 

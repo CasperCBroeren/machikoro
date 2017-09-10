@@ -13,7 +13,7 @@ namespace Machikoro.Logic.GameItems.Cards.Large
             this.Cost = 8;
         }
 
-        public override async Task<bool> DoEffectAsync()
+        public override async Task<bool> DoEffect()
         {
             return await Owner.TradeACard();
         }

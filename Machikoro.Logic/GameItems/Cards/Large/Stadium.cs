@@ -13,7 +13,7 @@ namespace Machikoro.Logic.GameItems.Cards.Large
             this.Cost = 6;
         }
         
-        public override Task<bool> DoEffectAsync()
+        public override Task<bool> DoEffect()
         {
             foreach (var otherPlayer in CurrentGame.Players.Where(x=> !x.Equals(Owner)))
             {

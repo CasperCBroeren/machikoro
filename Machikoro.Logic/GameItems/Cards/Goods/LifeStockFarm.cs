@@ -16,7 +16,7 @@ namespace Machikoro.Logic.GameItems.Cards.Goods
             this.SubType = CardSubType.LiveStock;
         }
 
-        public override Task<bool> DoEffectAsync()
+        public override Task<bool> DoEffect()
         {
             CurrentGame.BankService.TransferMoney(1, Owner, null);
 

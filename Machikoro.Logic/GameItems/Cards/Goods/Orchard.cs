@@ -15,7 +15,7 @@ namespace Machikoro.Logic.GameItems.Cards.Goods
             this.SubType = CardSubType.FruitVegetableGrain;
         }
 
-        public override Task<bool> DoEffectAsync()
+        public override Task<bool> DoEffect()
         {
             CurrentGame.BankService.TransferMoney(3, Owner, null);
 

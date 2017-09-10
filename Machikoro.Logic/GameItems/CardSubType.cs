@@ -5,5 +5,8 @@
         FruitVegetableGrain,
         LiveStock,
         BuildingMaterial, 
+        Restauration,
+        Shop,
+        Market
     }
 }

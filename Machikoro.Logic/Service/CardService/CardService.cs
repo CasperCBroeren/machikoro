@@ -41,6 +41,8 @@ namespace Machikoro.Logic.Service.CardService
             cardStock.Add(nameof(TvStation), 4);
 
             cardStock.Add(nameof(TrainStation), 4);
+            cardStock.Add(nameof(ThemePark), 4);
+            cardStock.Add(nameof(ShoppingMall), 4);
         }
 
         public int AmountInStock(Type card)

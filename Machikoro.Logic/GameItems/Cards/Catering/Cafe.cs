@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Machikoro.Logic.GameItems.Cards.Epic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Machikoro.Logic.GameItems.Cards.Catering
 {
@@ -10,13 +12,15 @@ namespace Machikoro.Logic.GameItems.Cards.Catering
             this.Activation = new int[] {3};
             this.CardType = CardType.Catering;
             this.Cost = 2;
+            this.SubType = CardSubType.Restauration;
         }
         
-        public override Task<bool> DoEffectAsync()
+        public override Task<bool> DoEffect()
         {
             if (Owner != CurrentGame.CurrentPlayer)
-            { 
-                CurrentGame.BankService.TransferMoney(1, Owner, CurrentGame.CurrentPlayer);
+            {
+                var addOne = Owner.Cards.Any(x => x is ShoppingMall) ? 1 : 0;
+                CurrentGame.BankService.TransferMoney(1 + addOne, Owner, CurrentGame.CurrentPlayer);
                 return Task.FromResult(true);
             }
             return Task.FromResult(false);

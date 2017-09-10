@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Machikoro.Logic.GameItems.Cards;
 
-namespace Machikoro.Logic.GameItems
+namespace Machikoro.Logic.GameItems.Player
 {
-    public class Player : IPlayer
+    public class TestPlayer : IPlayer
     {
-        public Player(IGame game)
+        public TestPlayer(IGame game)
         { 
             this.Game = game;
             game.Players.Add(this);
@@ -65,7 +65,7 @@ namespace Machikoro.Logic.GameItems
             {
                 if (card.Activation.Contains(Game.DiceService.CurrentPips))
                 {
-                    var result = await card.DoEffectAsync();
+                    var result = await card.DoEffect();
                     if (result)
                     { 
                         Game.OnCardActivated(card, this);
@@ -78,6 +78,16 @@ namespace Machikoro.Logic.GameItems
         public Task<IPlayer> PickPlayer()
         {
             return Task.FromResult(Game.Players.Where(x => x.Id != this.Id).FirstOrDefault());
+        }
+
+        public Task<bool> DoDoubleTrow()
+        {
+            return Task.FromResult(false);
+        }
+
+        public Task<bool> RethrowDice()
+        {
+            return Task.FromResult(false);
         }
     }
 }

@@ -11,9 +11,10 @@ namespace Machikoro.Logic.GameItems.Cards.Commercial
             this.Activation = new int[] { 8 };
             this.CardType = CardType.Commercial;
             this.Cost = 3;
+            this.SubType = CardSubType.Market;
         }
 
-        public override Task<bool> DoEffectAsync()
+        public override Task<bool> DoEffect()
         {
             if (Owner == CurrentGame.CurrentPlayer)
             {

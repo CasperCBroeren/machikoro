@@ -13,7 +13,7 @@ namespace Machikoro.Logic.GameItems.Cards.Large
             this.Cost = 7;
         }
         
-        public override async Task<bool> DoEffectAsync()
+        public override async Task<bool> DoEffect()
         {
             var otherPlayer = await Owner.PickPlayer();
             if (otherPlayer != null)
