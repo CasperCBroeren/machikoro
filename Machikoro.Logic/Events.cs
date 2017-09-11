@@ -16,5 +16,7 @@ namespace Machikoro.Logic
         public delegate bool DiceThrown(IPlayer thrownBy, int pips);
 
         public delegate bool CardTraded(ACard ownCard, ACard otherCard);
+
+        public delegate bool GameEnded(IPlayer player);
     }
 }

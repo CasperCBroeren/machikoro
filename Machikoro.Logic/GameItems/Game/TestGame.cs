@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Machikoro.Logic.GameItems.Cards;
+using Machikoro.Logic.GameItems.Cards.Epic;
 using Machikoro.Logic.Service;
 
 namespace Machikoro.Logic.GameItems.Game
@@ -52,6 +53,20 @@ namespace Machikoro.Logic.GameItems.Game
             OnDiceThrown(CurrentPlayer, this.DiceService.CurrentPips);
         }
 
+        public bool CheckEndGame()
+        {
+            foreach (var player in this.Players)
+            {
+                if (player.Cards.Any(x => x is TrainStation) 
+                    && true == false) // Todo other logic
+                {
+                    OnGameEnded(player);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void SetNextPlayer()
         {
             if (this.CurrentPlayer == null)
@@ -72,16 +87,27 @@ namespace Machikoro.Logic.GameItems.Game
         }
 
         public event Events.DiceThrown        DiceThrown;
+
         public event Events.CardActivated     CardActivated;
+
         public event Events.CoinsDeducted     CoinsDeducted;
+
         public event Events.CoinsReceived     CoinsReceived;
+
         public event Events.CardTraded        CardTraded;
 
+        public event Events.GameEnded         GameEnded;
+
+        public void OnGameEnded(IPlayer winner)
+        {
+            GameEnded?.Invoke(winner);
+        }
+        
         public void OnDiceThrown(IPlayer player, int pips)
         {
             DiceThrown?.Invoke(player, pips);
         }
-        
+
         public void OnCardActivated(ACard card, IPlayer player)
         {
             CardActivated?.Invoke(card, player);
@@ -91,7 +117,7 @@ namespace Machikoro.Logic.GameItems.Game
         {
             CoinsDeducted?.Invoke(deductedFrom, amount, taker);
         }
-        
+
         public void OnCoinsReceived(IPlayer receiver, int amount, IPlayer sender)
         {
             CoinsReceived?.Invoke(receiver, amount, sender);
