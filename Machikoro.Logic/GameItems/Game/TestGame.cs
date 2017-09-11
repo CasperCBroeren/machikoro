@@ -54,7 +54,10 @@ namespace Machikoro.Logic.GameItems.Game
             {
                 await player.ExecuteRound();   
             }
+            
             await CurrentPlayer.BuyACardAtRound();
+            this.CheckEndGame();
+           
             if (this.CurrentPlayer.Cards.Any(x => x is ThemePark))
             {
                if ( await this.CurrentPlayer.Cards.First(x => x is ThemePark).DoEffect())
@@ -76,7 +79,9 @@ namespace Machikoro.Logic.GameItems.Game
             foreach (var player in this.Players)
             {
                 if (player.Cards.Any(x => x is TrainStation) 
-                    && true == false) // Todo other logic
+                    && player.Cards.Any(x => x is RadioStation)
+                    && player.Cards.Any(x => x is ShoppingMall)
+                    && player.Cards.Any(x => x is ThemePark))
                 {
                     OnGameEnded(player);
                     return true;
