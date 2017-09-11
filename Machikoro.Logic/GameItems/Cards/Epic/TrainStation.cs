@@ -12,10 +12,9 @@ namespace Machikoro.Logic.GameItems.Cards.Epic
             this.Cost = 4;
         }
         
-        public override Task<bool> DoEffectAsync()
-        {
-            
-            return Task.FromResult(true);
+        public override async Task<bool> DoEffect()
+        {            
+            return await Owner.DoDoubleTrow();
         }
     }
 }

@@ -16,6 +16,8 @@ namespace Machikoro.Logic.GameItems
         Task<ACard> PickCardOfOtherCollection();
         Task<ACard> PickCardOfOwnCollection();
         Task<bool> BuyACardAtRound();
+        Task<bool> RethrowDice();
+        Task<bool> DoDoubleTrow();
         Task<bool> TradeACard();        
         Task<IPlayer> PickPlayer();
     }

@@ -11,6 +11,7 @@ using Machikoro.Logic.Service.DiceService;
 using Shouldly;
 using Xunit;
 using Machikoro.Logic.GameItems.Game;
+using Machikoro.Logic.GameItems.Player;
 
 namespace Machikoro.Test
 {
@@ -24,7 +25,7 @@ namespace Machikoro.Test
                 new BankService(game),
                 new CardService(game));
             
-            var player = new Player(game); 
+            var player = new TestPlayer(game); 
             var card = new GrainField(player);
             await game.ExecuteRound();
             player.Coins.ShouldBe(3);
@@ -38,7 +39,7 @@ namespace Machikoro.Test
                                 new BankService(game),
                                 new CardService(game));
              
-            var player = new Player(game);
+            var player = new TestPlayer(game);
 
             var card = new GrainField(player);
             await game.ExecuteRound();
@@ -53,9 +54,9 @@ namespace Machikoro.Test
                 new BankService(game),
                 new CardService(game));
 
-            var player1 = new Player(game) {Name = "player1"};
-            var player2 = new Player(game) {Name = "player2"};
-            var player3 = new Player(game) {Name = "player3"};
+            var player1 = new TestPlayer(game) {Name = "player1"};
+            var player2 = new TestPlayer(game) {Name = "player2"};
+            var player3 = new TestPlayer(game) {Name = "player3"};
 
             game.CurrentPlayer = player3;
             var card = new Cafe(player2);
@@ -73,7 +74,7 @@ namespace Machikoro.Test
                 new BankService(game),
                 new CardService(game));
             
-            var player1 = new Player(game);
+            var player1 = new TestPlayer(game);
             game.CurrentPlayer = player1;
             var card = new Bakery(player1);
             await game.ExecuteRound();
@@ -88,9 +89,9 @@ namespace Machikoro.Test
                 new BankService(game),
                 new CardService(game));
             
-            var player1 = new Player(game); 
-            var player2 = new Player(game); 
-            var player3 = new Player(game);
+            var player1 = new TestPlayer(game); 
+            var player2 = new TestPlayer(game); 
+            var player3 = new TestPlayer(game);
             game.CurrentPlayer = player1;
             var card = new Stadium(player1);
             await game.ExecuteRound();

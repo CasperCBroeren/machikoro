@@ -1,6 +1,7 @@
 ﻿using Machikoro.Logic.GameItems;
 using Machikoro.Logic.GameItems.Cards.Goods;
 using Machikoro.Logic.GameItems.Game;
+using Machikoro.Logic.GameItems.Player;
 using Machikoro.Logic.Service.BankService;
 using Machikoro.Logic.Service.CardService;
 using Machikoro.Logic.Service.DiceService;
@@ -19,7 +20,7 @@ namespace Machikoro.Test
             var bankService = new BankService(game);
             var cardService = new CardService(game);
             game.SetDependencies(new FixedDice() { FixedNumber= 2}, bankService, cardService);
-            var player = new Player(game);
+            var player = new TestPlayer(game);
 
             for (int i = 0; i< 5;i++)
             {
