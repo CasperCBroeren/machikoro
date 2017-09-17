@@ -19,14 +19,16 @@ namespace Machikoro.Test
             var game = new TestGame();
             var bankService = new BankService(game);
             var cardService = new CardService(game);
-            game.SetDependencies(new FixedDice() { FixedNumber= 2}, bankService, cardService);
-            var player = new TestPlayer(game);
+            var player1 = new TestPlayer(game);
+            var player2 = new TestPlayer(game);
+            game.StartGame(new FixedDice() { FixedNumber= 2}, bankService, cardService);
+            
 
-            for (int i = 0; i< 5;i++)
+            for (var i = 0; i< 5;i++)
             {
-               await cardService.BuyCard(player, typeof(GrainField));
+               await cardService.BuyCard(player1, typeof(GrainField));
             }
-            game.BankService.BankBalance.ShouldBe(192);
+            game.BankService.BankBalance.ShouldBe(189);
             game.CardService.AmountInStock(typeof(GrainField)).ShouldBe(7);
         }
     }

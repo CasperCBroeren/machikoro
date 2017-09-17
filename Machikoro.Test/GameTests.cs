@@ -15,14 +15,17 @@ namespace Machikoro.Test
         public void WhenAllEpicsAreCollected_NoEndGame()
         {
             var game = new TestGame();
-            game.SetDependencies(new FixedDice() {FixedNumber = 0},
+            
+            var player1 = new TestPlayer(game);
+            var player2 = new TestPlayer(game);
+            
+            game.StartGame(new FixedDice() {FixedNumber = 0},
                 new BankService(game),
                 new CardService(game));
-            
-            var player = new TestPlayer(game); 
-            var card1 = new TrainStation(player);
-            var card2 = new RadioStation(player);
-            var card3 = new ThemePark(player); 
+             
+            var card1 = new TrainStation(player1);
+            var card2 = new RadioStation(player1);
+            var card3 = new ThemePark(player1); 
             
             var result = game.CheckEndGame();
             result.ShouldBe(false);
@@ -32,15 +35,18 @@ namespace Machikoro.Test
         public void WhenAllEpicsAreCollected_EndGame()
         {
             var game = new TestGame();
-            game.SetDependencies(new FixedDice() {FixedNumber = 0},
+            
+            var player1 = new TestPlayer(game);  
+            var player2 = new TestPlayer(game); 
+            
+            game.StartGame(new FixedDice() {FixedNumber = 0},
                 new BankService(game),
                 new CardService(game));
             
-            var player = new TestPlayer(game); 
-            var card1 = new TrainStation(player);
-            var card2 = new RadioStation(player);
-            var card3 = new ThemePark(player);
-            var card4 = new ShoppingMall(player);
+            var card1 = new TrainStation(player1);
+            var card2 = new RadioStation(player1);
+            var card3 = new ThemePark(player1);
+            var card4 = new ShoppingMall(player1);
              
             var result = game.CheckEndGame();
             result.ShouldBe(true);

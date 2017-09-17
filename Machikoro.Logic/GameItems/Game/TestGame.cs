@@ -14,24 +14,34 @@ namespace Machikoro.Logic.GameItems.Game
         public IDiceService DiceService { get; private set; }
         public IBankService BankService { get; private set; }
         public ICardService CardService { get; private set; }
-         
-        public List<IPlayer> Players { get;  }
+
+        public List<IPlayer> Players { get; }
         public IPlayer CurrentPlayer { get; set; }
-    
+
         public int StartCoinCount { get; } = 3;
 
-        public void SetDependencies(IDiceService diceService,
+        public void StartGame(IDiceService diceService,
             IBankService bankService,
             ICardService cardService)
         {
+            if (Players.Count < 2)
+                throw new Exception("Please start the game with 2 or more players (but not more then 4)");
+            if (Players.Count > 4)
+                throw new Exception("Please start the game with 4 or less players (but no less then 2)");
+
             DiceService = diceService;
             BankService = bankService;
             CardService = cardService;
+
+            foreach (var player in Players)
+            {
+                BankService.TransferMoney(StartCoinCount, player, null);
+            }
         }
 
         public TestGame()
         {
-           this.Players = new List<IPlayer>();
+            this.Players = new List<IPlayer>();
         }
 
         public async Task<bool> ExecuteRound(bool setNext = true)
@@ -40,30 +50,24 @@ namespace Machikoro.Logic.GameItems.Game
             {
                 SetNextPlayer();
             }
-            
+
             await ThrowDice();
-            if (this.CurrentPlayer.Cards.Any(x=> x is RadioStation))
-            {
-               if (await this.CurrentPlayer.Cards.First(x => x is RadioStation).DoEffect())
-               {
-                    await ThrowDice();
-               }
-            }
             
+
             foreach (var player in Players)
             {
-                await player.ExecuteRound();   
+                await player.ExecuteRound();
             }
-            
+
             await CurrentPlayer.BuyACardAtRound();
             this.CheckEndGame();
-           
+
             if (this.CurrentPlayer.Cards.Any(x => x is ThemePark))
             {
-               if ( await this.CurrentPlayer.Cards.First(x => x is ThemePark).DoEffect())
-               {
+                if (await this.CurrentPlayer.Cards.First(x => x is ThemePark).DoEffect())
+                {
                     await ExecuteRound(false);
-               }
+                }
             }
             return true;
         }
@@ -78,7 +82,7 @@ namespace Machikoro.Logic.GameItems.Game
         {
             foreach (var player in this.Players)
             {
-                if (player.Cards.Any(x => x is TrainStation) 
+                if (player.Cards.Any(x => x is TrainStation)
                     && player.Cards.Any(x => x is RadioStation)
                     && player.Cards.Any(x => x is ShoppingMall)
                     && player.Cards.Any(x => x is ThemePark))
@@ -97,7 +101,7 @@ namespace Machikoro.Logic.GameItems.Game
                 this.CurrentPlayer = this.Players.First();
                 return;
             }
-            
+
             var newPlayer = this.Players.SkipWhile(x => !x.Id.Equals(this.CurrentPlayer.Id)).Skip(1);
             if (newPlayer != null && newPlayer.Any())
             {
@@ -109,23 +113,23 @@ namespace Machikoro.Logic.GameItems.Game
             }
         }
 
-        public event Events.DiceThrown        DiceThrown;
+        public event Events.DiceThrown DiceThrown;
 
-        public event Events.CardActivated     CardActivated;
+        public event Events.CardActivated CardActivated;
 
-        public event Events.CoinsDeducted     CoinsDeducted;
+        public event Events.CoinsDeducted CoinsDeducted;
 
-        public event Events.CoinsReceived     CoinsReceived;
+        public event Events.CoinsReceived CoinsReceived;
 
-        public event Events.CardTraded        CardTraded;
+        public event Events.CardTraded CardTraded;
 
-        public event Events.GameEnded         GameEnded;
+        public event Events.GameEnded GameEnded;
 
         public void OnGameEnded(IPlayer winner)
         {
             GameEnded?.Invoke(winner);
         }
-        
+
         public void OnDiceThrown(IPlayer player, int pips)
         {
             DiceThrown?.Invoke(player, pips);

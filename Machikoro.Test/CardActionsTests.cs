@@ -21,25 +21,31 @@ namespace Machikoro.Test
         public async Task  GrainField_NoPips()
         {
             var game = new TestGame();
-            game.SetDependencies(new FixedDice() {FixedNumber = 0},
+            
+            var player1 = new TestPlayer(game);  
+            var player2 = new TestPlayer(game); 
+            
+            game.StartGame(new FixedDice() {FixedNumber = 0},
                 new BankService(game),
                 new CardService(game));
             
-            var player = new TestPlayer(game); 
-            var card = new GrainField(player);
+            var card = new GrainField(player1);
             await game.ExecuteRound();
-            player.Coins.ShouldBe(3);
+            player1.Coins.ShouldBe(3);
         }
         
         [Fact]
         public async Task  GrainField_ShouldAdd_1()
         {
             var game = new TestGame();
-            game.SetDependencies(new FixedDice() {FixedNumber = 1},
+            
+            var player = new TestPlayer(game); 
+            var player2 = new TestPlayer(game);
+             
+            game.StartGame(new FixedDice() {FixedNumber = 1},
                                 new BankService(game),
                                 new CardService(game));
              
-            var player = new TestPlayer(game);
 
             var card = new GrainField(player);
             await game.ExecuteRound();
@@ -50,13 +56,15 @@ namespace Machikoro.Test
         public async Task Cafe_ShouldAdd_1_and_Deduct_1()
         {
             var game = new TestGame();
-            game.SetDependencies(new FixedDice() {FixedNumber = 3},
-                new BankService(game),
-                new CardService(game));
-
+            
             var player1 = new TestPlayer(game) {Name = "player1"};
             var player2 = new TestPlayer(game) {Name = "player2"};
             var player3 = new TestPlayer(game) {Name = "player3"};
+            
+            game.StartGame(new FixedDice() {FixedNumber = 3},
+                new BankService(game),
+                new CardService(game));
+
 
             game.CurrentPlayer = player3;
             var card = new Cafe(player2);
@@ -70,13 +78,14 @@ namespace Machikoro.Test
         public async Task  Bakery_ShouldAdd_1()
         {
             var game = new TestGame();
-            game.SetDependencies(new FixedDice() {FixedNumber = 2},
+            var player1 = new TestPlayer(game);
+            var player2 = new TestPlayer(game); 
+            
+            game.StartGame(new FixedDice() {FixedNumber = 2},
                 new BankService(game),
                 new CardService(game));
             
-            var player1 = new TestPlayer(game);
-            game.CurrentPlayer = player1;
-            var card = new Bakery(player1);
+             var card = new Bakery(player1);
             await game.ExecuteRound();
             player1.Coins.ShouldBe(4); 
         }
@@ -85,14 +94,14 @@ namespace Machikoro.Test
         public async Task  Stadium_ShouldAdd_2()
         {
             var game = new TestGame();
-            game.SetDependencies(new FixedDice() {FixedNumber = 6},
-                new BankService(game),
-                new CardService(game));
-            
             var player1 = new TestPlayer(game); 
             var player2 = new TestPlayer(game); 
             var player3 = new TestPlayer(game);
-            game.CurrentPlayer = player1;
+            
+            game.StartGame(new FixedDice() {FixedNumber = 6},
+                new BankService(game),
+                new CardService(game));
+             
             var card = new Stadium(player1);
             await game.ExecuteRound();
             player1.Coins.ShouldBe(7);

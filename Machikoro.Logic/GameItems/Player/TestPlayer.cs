@@ -13,7 +13,6 @@ namespace Machikoro.Logic.GameItems.Player
             this.Game = game;
             game.Players.Add(this);
             this.Cards = new List<ACard>();
-            game.BankService.TransferMoney(game.StartCoinCount, this, null);
             Id = Guid.NewGuid();
         }
 
