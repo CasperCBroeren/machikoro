@@ -39,24 +39,24 @@ namespace Machikoro.Test
         {
             var game = new TestGame();
             
-            var player = new TestPlayer(game); 
+            var player1 = new TestPlayer(game); 
             var player2 = new TestPlayer(game);
              
             game.StartGame(new FixedDice() {FixedNumber = 1},
                                 new BankService(game),
                                 new CardService(game));
-             
 
-            var card = new GrainField(player);
+
+            await game.CardService.BuyCard(player1, typeof(GrainField));
             await game.ExecuteRound();
-            player.Coins.ShouldBe(4);
+            player1.Coins.ShouldBe(3);
         }
         
         [Fact]
-        public async Task Cafe_ShouldAdd_1_and_Deduct_1()
+        public async Task Cafe_ShouldAdd_1_and_Deduct_2()
         {
             var game = new TestGame();
-            
+            game.StartCoinCount = 4;
             var player1 = new TestPlayer(game) {Name = "player1"};
             var player2 = new TestPlayer(game) {Name = "player2"};
             var player3 = new TestPlayer(game) {Name = "player3"};
@@ -66,11 +66,12 @@ namespace Machikoro.Test
                 new CardService(game));
 
 
-            game.CurrentPlayer = player3;
-            var card = new Cafe(player2);
+            game.CurrentPlayer = player1;
+            await game.CardService.BuyCard(player1, typeof(Cafe));
+            await game.CardService.BuyCard(player3, typeof(Cafe));
             await  game.ExecuteRound();
-            player1.Coins.ShouldBe(2);
-            player2.Coins.ShouldBe(4);
+            player1.Coins.ShouldBe(3);
+            player2.Coins.ShouldBe(2);
             player3.Coins.ShouldBe(3);
         }
         
@@ -78,14 +79,15 @@ namespace Machikoro.Test
         public async Task  Bakery_ShouldAdd_1()
         {
             var game = new TestGame();
+            game.StartCoinCount = 4;
             var player1 = new TestPlayer(game);
             var player2 = new TestPlayer(game); 
             
             game.StartGame(new FixedDice() {FixedNumber = 2},
                 new BankService(game),
                 new CardService(game));
-            
-             var card = new Bakery(player1);
+
+            await game.CardService.BuyCard(player1, typeof(Bakery));
             await game.ExecuteRound();
             player1.Coins.ShouldBe(4); 
         }
@@ -94,6 +96,7 @@ namespace Machikoro.Test
         public async Task  Stadium_ShouldAdd_2()
         {
             var game = new TestGame();
+            game.StartCoinCount = 6;
             var player1 = new TestPlayer(game); 
             var player2 = new TestPlayer(game); 
             var player3 = new TestPlayer(game);
@@ -101,12 +104,12 @@ namespace Machikoro.Test
             game.StartGame(new FixedDice() {FixedNumber = 6},
                 new BankService(game),
                 new CardService(game));
-             
-            var card = new Stadium(player1);
+
+            await game.CardService.BuyCard(player1, typeof(Stadium));
             await game.ExecuteRound();
-            player1.Coins.ShouldBe(7);
-            player2.Coins.ShouldBe(1); 
-            player3.Coins.ShouldBe(1);
+            player1.Coins.ShouldBe(4);
+            player2.Coins.ShouldBe(4); 
+            player3.Coins.ShouldBe(4);
         }
     }
 }

@@ -10,7 +10,7 @@ using Machikoro.Logic.GameItems.Cards.Commercial;
 
 namespace Machikoro.Logic.GameItems.Game
 {
-    public class TestGame : IGame
+    public class RealGame : IGame
     {
         public IDiceService DiceService { get; private set; }
         public IBankService BankService { get; private set; }
@@ -19,7 +19,7 @@ namespace Machikoro.Logic.GameItems.Game
         public List<IPlayer> Players { get; }
         public IPlayer CurrentPlayer { get; set; }
 
-        public int StartCoinCount { get; set; } = 3;
+        public int StartCoinCount { get; } = 5;
 
         public void StartGame(IDiceService diceService,
             IBankService bankService,
@@ -37,12 +37,14 @@ namespace Machikoro.Logic.GameItems.Game
             foreach (var player in Players)
             {
                 BankService.TransferMoney(StartCoinCount, player, null);
+                CardService.BuyCard(player, typeof(GrainField));
+                CardService.BuyCard(player, typeof(Bakery));
                
             }
             
         }
 
-        public TestGame()
+        public RealGame()
         {
             this.Players = new List<IPlayer>();
         }

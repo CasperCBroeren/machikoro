@@ -40,6 +40,7 @@ namespace Machikoro.Logic.Service.CardService
             cardStock.Add(nameof(BusinessComplex), 9);
             cardStock.Add(nameof(TvStation), 4);
 
+            cardStock.Add(nameof(RadioStation), 4);
             cardStock.Add(nameof(TrainStation), 4);
             cardStock.Add(nameof(ThemePark), 4);
             cardStock.Add(nameof(ShoppingMall), 4);
@@ -56,22 +57,29 @@ namespace Machikoro.Logic.Service.CardService
             {
                 throw new TypeInitializationException(nameof(card), new Exception("Only Buy objects of type Acard"));
             }
-
+            ACard cardInst = (ACard)Activator.CreateInstance(card, buyForPlayer);
             if (cardStock[card.GetTypeInfo().Name] < 1)
             {
+                this.game.OnCardSaleFailed(cardInst, buyForPlayer, BuyFailedReason.CardIsOutOfStock);
+                
+                return false;
+            } 
+
+            if (cardInst.Cost > buyForPlayer.Coins)
+            {
+                this.game.OnCardSaleFailed(cardInst, buyForPlayer, BuyFailedReason.PlayerLacksCoins);
                 return false;
             }
 
-
-            ACard cardInst = (ACard)Activator.CreateInstance(card, buyForPlayer);
             var transferResult = await game.BankService.TransferMoney(cardInst.Cost, null, buyForPlayer);
             if (transferResult)
             {   
                 buyForPlayer.Cards.Add(cardInst);
                 cardStock[card.GetTypeInfo().Name] -= 1;
+                this.game.OnCardBought(cardInst, buyForPlayer);
                 return true;
             }
-
+            this.game.OnCardSaleFailed(cardInst, buyForPlayer, BuyFailedReason.MoneyTransferFailed);
             return false;
         }
 

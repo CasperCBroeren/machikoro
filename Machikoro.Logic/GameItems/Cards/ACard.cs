@@ -14,8 +14,7 @@ namespace Machikoro.Logic.GameItems.Cards
 
         public ACard(IPlayer owner)
         {
-            this.Owner = owner;
-            owner.Cards.Add(this);
+            this.Owner = owner;            
         }
         
         public abstract Task<bool> DoEffect();

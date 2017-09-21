@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.0.0
-MinimumVisualStudioVersion = 10.0.0.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachikoroTest", "Machikoro.Test/Machikoro.Test.csproj", "{29BB9227-3B95-4193-8E3B-7CA352078EC2}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Machikoro.Test", "Machikoro.Test\Machikoro.Test.csproj", "{29BB9227-3B95-4193-8E3B-7CA352078EC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Machikoro.Logic", "Machikoro.Logic/Machikoro.Logic.csproj", "{F92F8E22-CC29-45CB-9016-CB21DAEF255A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Machikoro.Logic", "Machikoro.Logic\Machikoro.Logic.csproj", "{F92F8E22-CC29-45CB-9016-CB21DAEF255A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleGame", "ConsoleGame\ConsoleGame.csproj", "{74F46BE1-3AB7-42BA-98D3-019CA33BBB13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F92F8E22-CC29-45CB-9016-CB21DAEF255A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F92F8E22-CC29-45CB-9016-CB21DAEF255A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F92F8E22-CC29-45CB-9016-CB21DAEF255A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74F46BE1-3AB7-42BA-98D3-019CA33BBB13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74F46BE1-3AB7-42BA-98D3-019CA33BBB13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74F46BE1-3AB7-42BA-98D3-019CA33BBB13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74F46BE1-3AB7-42BA-98D3-019CA33BBB13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

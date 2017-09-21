@@ -5,6 +5,7 @@ using Machikoro.Logic.Service.BankService;
 using Machikoro.Logic.Service.CardService;
 using Machikoro.Logic.Service.DiceService;
 using Shouldly;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Machikoro.Test
@@ -12,7 +13,7 @@ namespace Machikoro.Test
     public class GameTests
     {
         [Fact]
-        public void WhenAllEpicsAreCollected_NoEndGame()
+        public async Task WhenAllEpicsAreCollected_NoEndGame()
         {
             var game = new TestGame();
             
@@ -22,32 +23,32 @@ namespace Machikoro.Test
             game.StartGame(new FixedDice() {FixedNumber = 0},
                 new BankService(game),
                 new CardService(game));
-             
-            var card1 = new TrainStation(player1);
-            var card2 = new RadioStation(player1);
-            var card3 = new ThemePark(player1); 
-            
+
+            await game.CardService.BuyCard(player1, typeof(TrainStation));
+            await game.CardService.BuyCard(player1, typeof(RadioStation));
+            await game.CardService.BuyCard(player1, typeof(ThemePark));
+
             var result = game.CheckEndGame();
             result.ShouldBe(false);
         }
         
         [Fact]
-        public void WhenAllEpicsAreCollected_EndGame()
+        public async Task WhenAllEpicsAreCollected_EndGame()
         {
             var game = new TestGame();
-            
+            game.StartCoinCount = 100;
             var player1 = new TestPlayer(game);  
             var player2 = new TestPlayer(game); 
             
             game.StartGame(new FixedDice() {FixedNumber = 0},
                 new BankService(game),
                 new CardService(game));
-            
-            var card1 = new TrainStation(player1);
-            var card2 = new RadioStation(player1);
-            var card3 = new ThemePark(player1);
-            var card4 = new ShoppingMall(player1);
-             
+
+            await game.CardService.BuyCard(player1, typeof(TrainStation));
+            await game.CardService.BuyCard(player1, typeof(RadioStation));
+            await game.CardService.BuyCard(player1, typeof(ThemePark));
+            await game.CardService.BuyCard(player1, typeof(ShoppingMall));
+
             var result = game.CheckEndGame();
             result.ShouldBe(true);
         }

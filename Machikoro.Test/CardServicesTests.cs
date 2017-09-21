@@ -17,6 +17,7 @@ namespace Machikoro.Test
         public async Task BuyAllGrainFields()
         {
             var game = new TestGame();
+            game.StartCoinCount = 100;
             var bankService = new BankService(game);
             var cardService = new CardService(game);
             var player1 = new TestPlayer(game);
@@ -24,12 +25,12 @@ namespace Machikoro.Test
             game.StartGame(new FixedDice() { FixedNumber= 2}, bankService, cardService);
             
 
-            for (var i = 0; i< 5;i++)
+            for (var i = 0; i< 10;i++)
             {
                await cardService.BuyCard(player1, typeof(GrainField));
             }
-            game.BankService.BankBalance.ShouldBe(189);
-            game.CardService.AmountInStock(typeof(GrainField)).ShouldBe(7);
+            game.BankService.BankBalance.ShouldBe(10);
+            game.CardService.AmountInStock(typeof(GrainField)).ShouldBe(0);
         }
     }
 }

@@ -10,15 +10,15 @@ namespace Machikoro.Logic.GameItems
         List<ACard> Cards { get;  }
         int Coins { get; set; }
         IGame Game { get;   }
-        Guid Id { get;  }
+        string Name { get; set; }
 
         Task ExecuteRound();
-        Task<ACard> PickCardOfOtherCollection();
+        Task<ACard> PickCardOfOtherCollection(IPlayer player);
         Task<ACard> PickCardOfOwnCollection();
         Task<bool> BuyACardAtRound();
         Task<bool> RethrowDice();
         Task<bool> DoDoubleTrow();
-        Task<bool> TradeACard();        
+        Task<bool> WantsToTradeACard(); 
         Task<IPlayer> PickPlayer();
     }
 }

@@ -14,18 +14,12 @@ namespace Machikoro.Logic.GameItems.Player
             game.Players.Add(this);
             this.Cards = new List<ACard>();
             Id = Guid.NewGuid();
+            Name = "Test Player";
         }
 
-        public async Task<bool> TradeACard()
+        public Task<bool> WantsToTradeACard()
         {
-            var ownCard = await PickCardOfOwnCollection();
-            if (ownCard != null)
-            {
-                var otherCard = await PickCardOfOtherCollection();
-                await Game.CardService.TradeCardFromOwner(ownCard, otherCard);
-                return true;
-            }
-            return false;
+            return Task.FromResult(false);
         }
 
         public Task<ACard> PickCardOfOtherCollection()
@@ -76,7 +70,7 @@ namespace Machikoro.Logic.GameItems.Player
 
         public Task<IPlayer> PickPlayer()
         {
-            return Task.FromResult(Game.Players.Where(x => x.Id != this.Id).FirstOrDefault());
+            return Task.FromResult(Game.Players.Where(x => !x.Equals(this)).FirstOrDefault());
         }
 
         public Task<bool> DoDoubleTrow()
@@ -87,6 +81,11 @@ namespace Machikoro.Logic.GameItems.Player
         public Task<bool> RethrowDice()
         {
             return Task.FromResult(false);
+        }
+
+        public Task<ACard> PickCardOfOtherCollection(IPlayer otherPlayer)
+        {
+            throw new NotImplementedException();
         }
     }
 }

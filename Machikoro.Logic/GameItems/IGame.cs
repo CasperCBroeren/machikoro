@@ -21,6 +21,8 @@ namespace Machikoro.Logic.GameItems
         void OnCoinsDeducted(IPlayer deductedFrom, int amount, IPlayer taker);
         void OnCoinsReceived(IPlayer receiver, int amount, IPlayer sender);
         void OnCardTraded(ACard ownCard, ACard otherCard);
+        void OnCardBought(ACard card, IPlayer player);
+        void OnCardSaleFailed(ACard card, IPlayer player, BuyFailedReason reason);
         void OnGameEnded(IPlayer winner);
     }
 }
